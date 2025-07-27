@@ -37,7 +37,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidUser.class)
-    public ResponseEntity<Map<String, String>> handleInvalidUser(ResourceNotFoundException ex) {
+    public ResponseEntity<Map<String, String>> handleInvalidUser(InvalidUser ex) {
         Map<String, String> response = new HashMap<>();
         response.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
@@ -47,6 +47,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
         Map<String, String> response = new HashMap<>();
         response.put("error", "El nombre de la playlist ya existe o hay una restricción de unicidad en la base de datos");
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler(EmailExists.class)
+    public ResponseEntity<Map<String, String>> handleEmailExists(EmailExists ex) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
     }
 }
