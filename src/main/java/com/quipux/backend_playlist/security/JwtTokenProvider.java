@@ -15,10 +15,10 @@ import java.util.Set;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret:SecretKey123SecretKey123SecretKey123SecretKey123}") // mínimo 256 bits para HS256
+    @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.expiration:3600000}") // 1 hora
+    @Value("${jwt.expiration}")
     private long validityInMs;
 
     private Key getSigningKey() {
