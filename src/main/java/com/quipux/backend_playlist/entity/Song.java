@@ -1,5 +1,6 @@
 package com.quipux.backend_playlist.entity;
 
+import com.quipux.backend_playlist.dto.request.SongRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,4 +29,13 @@ public class Song {
     @ManyToOne
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
+
+    public Song(SongRequest request) {
+        this.title = request.getTitle();
+        this.artist = request.getArtist();
+        this.album = request.getAlbum();
+        this.year = request.getYear();
+        this.genre = request.getGenre();
+    }
+
 }

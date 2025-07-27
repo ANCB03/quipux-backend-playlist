@@ -2,8 +2,11 @@ package com.quipux.backend_playlist.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.quipux.backend_playlist.dto.request.SongRequest;
+import com.quipux.backend_playlist.entity.Playlist;
+import com.quipux.backend_playlist.entity.Song;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -20,4 +23,12 @@ public class PlaylistResponse {
 
     @JsonProperty("canciones")
     private List<SongRequest> songs;
+
+    public PlaylistResponse(Playlist playlist) {
+        this.name = playlist.getName();
+        this.description = playlist.getDescription();
+        for (Song song : playlist.getSongs()){
+            this.songs.add(new SongRequest(song));
+        }
+    }
 }

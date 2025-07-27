@@ -1,6 +1,5 @@
 package com.quipux.backend_playlist.dto.response;
 
-import com.quipux.backend_playlist.dto.request.SongRequest;
 import lombok.*;
 
 import java.util.List;
@@ -11,5 +10,5 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class DescriptionResponse {
-    List<SongRequest> songs;
+    List<SongResponse> songs;
 }
