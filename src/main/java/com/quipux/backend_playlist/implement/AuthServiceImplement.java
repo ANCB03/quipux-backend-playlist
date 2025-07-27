@@ -21,6 +21,6 @@ public class AuthServiceImplement implements AuthService {
         return userRepository.findByEmail(email)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> jwtTokenProvider.generateToken(user.getEmail(), user.getRoles()))
-                .orElseThrow(() -> new InvalidUser("Invalid username or password"));
+                .orElseThrow(() -> new InvalidUser("Usuario invalido"));
     }
 }

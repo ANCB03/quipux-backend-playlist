@@ -1,6 +1,7 @@
 package com.quipux.backend_playlist.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 @ToString
 public class PlaylistRequest {
     @JsonProperty("nombre")
+    @NotEmpty(message = "Se requiere el nombre")
     private String name;
 
     @JsonProperty("descripcion")
