@@ -1,5 +1,6 @@
 package com.quipux.backend_playlist.entity;
 
+import com.quipux.backend_playlist.dto.request.PlaylistRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,9 @@ public class Playlist {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Song> songs;
+
+    public Playlist(PlaylistRequest request) {
+        this.name = request.getName();
+        this.description = request.getDescription();
+    }
 }

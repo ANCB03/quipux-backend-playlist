@@ -1,21 +1,25 @@
 package com.quipux.backend_playlist.implement;
 
-import com.quipux.backend_playlist.dto.response.DescriptionResponse;
+import com.quipux.backend_playlist.dto.request.PlaylistRequest;
+import com.quipux.backend_playlist.dto.request.SongRequest;
 import com.quipux.backend_playlist.dto.response.PlaylistResponse;
 import com.quipux.backend_playlist.dto.response.SongResponse;
 import com.quipux.backend_playlist.entity.Playlist;
 import com.quipux.backend_playlist.exception.ResourceNotFoundException;
 import com.quipux.backend_playlist.repository.PlaylistRepository;
 import com.quipux.backend_playlist.service.PlaylistService;
+import com.quipux.backend_playlist.service.SongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PlaylistServiceImplement implements PlaylistService {
     private final PlaylistRepository playlistRepository;
+    private final SongService  songService;
 
     @Override
     public List<PlaylistResponse> findAll() {
@@ -26,23 +30,32 @@ public class PlaylistServiceImplement implements PlaylistService {
     }
 
     @Override
-    public DescriptionResponse findByName(String name) {
+    public PlaylistResponse findByName(String name) {
         Playlist playlist = getAndValidatePlaylist(name);
 
         if (playlist.getSongs().isEmpty()) {
-            return new DescriptionResponse();
+            return new PlaylistResponse();
         }
 
-        return new DescriptionResponse(playlist.getSongs()
-                .stream()
-                .map(SongResponse::new)
-                .toList());
+        return new PlaylistResponse(playlist);
     }
 
     @Override
-    public void deleteByName(String name) {
+    public Void deleteByName(String name) {
         Playlist playlist = getAndValidatePlaylist(name);
         playlistRepository.delete(playlist);
+        return null;
+    }
+
+    @Override
+    public PlaylistResponse create(PlaylistRequest playlistRequest) {
+        PlaylistResponse response = new PlaylistResponse(playlistRepository.save(new Playlist(playlistRequest)));
+        List<SongResponse> songResponses = new ArrayList<>();
+        for (SongRequest song : playlistRequest.getSongs()) {
+            songResponses.add(songService.save(song));
+        }
+        response.setSongs(songResponses);
+        return response;
     }
 
     private Playlist getAndValidatePlaylist(String name) {
