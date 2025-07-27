@@ -21,6 +21,14 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private long validityInMs;
 
+    public JwtTokenProvider() {}
+
+    // Segundo constructor solo para test
+    public JwtTokenProvider(String secretKey, long validityInMs) {
+        this.secretKey = secretKey;
+        this.validityInMs = validityInMs;
+    }
+
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
     }

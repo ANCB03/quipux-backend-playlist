@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/lists")
 @RequiredArgsConstructor
-public class PlaylistRController {
+public class PlaylistController {
     private final PlaylistService playlistService;
 
     @PostMapping()
