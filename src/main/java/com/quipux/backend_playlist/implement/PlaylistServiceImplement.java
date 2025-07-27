@@ -49,10 +49,11 @@ public class PlaylistServiceImplement implements PlaylistService {
 
     @Override
     public PlaylistResponse create(PlaylistRequest playlistRequest) {
-        PlaylistResponse response = new PlaylistResponse(playlistRepository.save(new Playlist(playlistRequest)));
+        Playlist playlist = playlistRepository.save(new Playlist(playlistRequest));
+        PlaylistResponse response = new PlaylistResponse(playlist);
         List<SongResponse> songResponses = new ArrayList<>();
         for (SongRequest song : playlistRequest.getSongs()) {
-            songResponses.add(songService.save(song));
+            songResponses.add(songService.save(song, playlist));
         }
         response.setSongs(songResponses);
         return response;

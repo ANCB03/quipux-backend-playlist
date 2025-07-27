@@ -19,11 +19,11 @@ public class PlaylistRController {
 
     @PostMapping()
     public ResponseEntity<PlaylistResponse> create(@RequestBody @Valid PlaylistRequest request) {
-        return new ResponseEntity<>(playlistService.create(request), HttpStatus.OK);
+        return new ResponseEntity<>(playlistService.create(request), HttpStatus.CREATED);
     }
 
     @GetMapping()
-    public ResponseEntity<List<PlaylistResponse>> getAll(@RequestBody @Valid PlaylistRequest request) {
+    public ResponseEntity<List<PlaylistResponse>> getAll() {
         return new ResponseEntity<>(playlistService.findAll(), HttpStatus.OK);
     }
 

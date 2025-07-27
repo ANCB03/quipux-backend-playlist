@@ -29,7 +29,7 @@ public class SongResponse {
         this.title = song.getTitle();
         this.artist = song.getArtist();
         this.album = song.getAlbum();
-        this.year = song.getYear();
+        this.year = song.getReleaseYear();
         this.genre = song.getGenre();
     }
 }

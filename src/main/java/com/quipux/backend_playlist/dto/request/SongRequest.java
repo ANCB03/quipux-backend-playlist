@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.quipux.backend_playlist.entity.Song;
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,7 +30,7 @@ public class SongRequest {
         this.title = song.getTitle();
         this.artist = song.getArtist();
         this.album = song.getAlbum();
-        this.year = song.getYear();
+        this.year = song.getReleaseYear();
         this.genre = song.getGenre();
     }
 }

@@ -22,7 +22,7 @@ public class Song {
 
     private String album;
 
-    private String year;
+    private String releaseYear;
 
     private String genre;
 
@@ -30,12 +30,13 @@ public class Song {
     @JoinColumn(name = "playlist_id")
     private Playlist playlist;
 
-    public Song(SongRequest request) {
+    public Song(SongRequest request, Playlist playlist) {
         this.title = request.getTitle();
         this.artist = request.getArtist();
         this.album = request.getAlbum();
-        this.year = request.getYear();
+        this.releaseYear = request.getYear();
         this.genre = request.getGenre();
+        this.playlist = playlist;
     }
 
 }

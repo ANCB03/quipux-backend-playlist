@@ -25,8 +25,11 @@ public class PlaylistResponse {
     public PlaylistResponse(Playlist playlist) {
         this.name = playlist.getName();
         this.description = playlist.getDescription();
-        for (Song song : playlist.getSongs()){
-            this.songs.add(new SongResponse(song));
+        this.songs = new java.util.ArrayList<>();
+        if (!playlist.getSongs().isEmpty()) {
+            for (Song song : playlist.getSongs()){
+                this.songs.add(new SongResponse(song));
+            }
         }
     }
 }
