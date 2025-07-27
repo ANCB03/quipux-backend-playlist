@@ -1,5 +1,6 @@
 package com.quipux.backend_playlist.implement;
 
+import com.quipux.backend_playlist.exception.InvalidUser;
 import com.quipux.backend_playlist.repository.UserRepository;
 import com.quipux.backend_playlist.security.JwtTokenProvider;
 import com.quipux.backend_playlist.service.AuthService;
@@ -20,6 +21,6 @@ public class AuthServiceImplement implements AuthService {
         return userRepository.findByEmail(email)
                 .filter(user -> passwordEncoder.matches(password, user.getPassword()))
                 .map(user -> jwtTokenProvider.generateToken(user.getEmail(), user.getRoles()))
-                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+                .orElseThrow(() -> new InvalidUser("Invalid username or password"));
     }
 }
